@@ -3,3 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/job_finder
     username: antonfedoseev
     password:
+  jpa:
+    show-sql: true
+
