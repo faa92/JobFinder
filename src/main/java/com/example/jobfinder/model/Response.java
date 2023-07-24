@@ -2,34 +2,30 @@ package com.example.jobfinder.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.time.Instant;
 
 @Entity
-@NoArgsConstructor
+@Table(name = "response")
 @Getter
 @Setter
-public class Response {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@Accessors(chain = true)
+public class Response extends BaseEntity {
 
-    @ManyToOne(optional = false)   //todo
-    @JoinColumn(name = "job_id")
-    @Column(nullable = false)
-    private Job jobId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_id", nullable = false)
+    private Job job;
 
-    @ManyToOne
-    @JoinColumn(name = "candidate_id")
-    @Column(nullable = false)
-    private Candidate candidateId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "candidate_id", nullable = false)
+    private Candidate candidate;
 
-    @Column(nullable = false)
+    @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(updatable = false)
+    @Column(name = "created_at", updatable = false)
     private Instant createdAt;
 
 }

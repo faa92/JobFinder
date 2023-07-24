@@ -2,32 +2,32 @@ package com.example.jobfinder.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
-import java.math.BigDecimal;
+import java.time.Instant;
 
 @Entity
-@NoArgsConstructor
+@Table(name = "job")
 @Getter
 @Setter
-public class Job {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@Accessors(chain = true)
+public class Job extends BaseEntity {
 
-    @ManyToOne(optional = false)         //todo
-    @JoinColumn(name = "employer_id")        //todo
-    @Column(nullable = false)
-    private Employer employerId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "employer_id", nullable = false)
+    private Employer employer;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt;
+
+    @Column(name = "active", nullable = false)
     private boolean active;
 
 }

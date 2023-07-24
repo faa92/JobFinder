@@ -1,25 +1,29 @@
 package com.example.jobfinder.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+
+import java.net.URI;
 
 @Entity
+@Table(name = "employer")
 @NoArgsConstructor
 @Getter
 @Setter
-public class Employer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@Accessors(chain = true)
+public class Employer extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String website;
+    @Column(name = "website", nullable = false)
+    private URI website;
 }
