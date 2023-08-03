@@ -1,5 +1,6 @@
-package com.example.jobfinder.model;
+package com.example.jobfinder.model.employer;
 
+import com.example.jobfinder.model.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

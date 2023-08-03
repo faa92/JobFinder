@@ -1,6 +1,6 @@
 package com.example.jobfinder.repisitory;
 
-import com.example.jobfinder.model.Candidate;
+import com.example.jobfinder.model.candidate.Candidate;
 import org.springframework.stereotype.Repository;
 
 @Repository

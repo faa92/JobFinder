@@ -1,5 +1,7 @@
-package com.example.jobfinder.model;
+package com.example.jobfinder.model.job;
 
+import com.example.jobfinder.model.BaseEntity;
+import com.example.jobfinder.model.employer.Employer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.example.jobfinder.repisitory;
 
-import com.example.jobfinder.model.Response;
+import com.example.jobfinder.model.response.Response;
 
 import java.util.List;
 
