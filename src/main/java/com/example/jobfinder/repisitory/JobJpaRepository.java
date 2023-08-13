@@ -1,9 +1,10 @@
 package com.example.jobfinder.repisitory;
 
-import com.example.jobfinder.model.Job;
+import com.example.jobfinder.model.job.Job;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JobJpaRepository extends BaseJpaRepository<Job, Long> implements JobRepository {
@@ -39,5 +40,18 @@ public class JobJpaRepository extends BaseJpaRepository<Job, Long> implements Jo
                 .setMaxResults(pageSize)
                 .setFirstResult(pageSize * pageNumber)
                 .getResultList();
+    }
+
+    @Override
+    public Optional<Job> findByWithEmployer(long jobId) {
+        return entityManager.createQuery("""
+                        SELECT job
+                        FROM Job job
+                        JOIN FETCH job.employer
+                        WHERE job.id = :jobId
+                        """, Job.class)
+                .setParameter("jobId", jobId)
+                .getResultStream()
+                .findFirst();
     }
 }

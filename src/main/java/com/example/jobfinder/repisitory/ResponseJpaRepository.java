@@ -1,9 +1,12 @@
 package com.example.jobfinder.repisitory;
 
-import com.example.jobfinder.model.Response;
+import com.example.jobfinder.model.response.Response;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public class ResponseJpaRepository extends BaseJpaRepository<Response, Long> implements ResponseRepository {
 
     public ResponseJpaRepository() {
@@ -13,11 +16,11 @@ public class ResponseJpaRepository extends BaseJpaRepository<Response, Long> imp
     @Override
     public List<Response> findPageByJobWithCandidate(long jobId, int pageSize, int pageNumber) {
         return entityManager.createQuery("""
-                         SELECT response 
-                         FROM Response response
-                         JOIN FETCH response.candidate
-                         WHERE response.job.id = : jobId
-                         ORDER BY response.createdAt DESC                    
+                        SELECT response 
+                        FROM Response response
+                        JOIN FETCH response.candidate
+                        WHERE response.job.id = : jobId
+                        ORDER BY response.createdAt DESC                    
                         """, Response.class)
                 .setParameter("jobId", jobId)
                 .setMaxResults(pageSize)
@@ -39,5 +42,19 @@ public class ResponseJpaRepository extends BaseJpaRepository<Response, Long> imp
                 .setMaxResults(pageSize)
                 .setFirstResult(pageSize * pageNumber)
                 .getResultList();
+    }
+
+    @Override
+    public Optional<Response> findByJobAndCandidate(long jobId, long candidateId) {
+        return entityManager.createQuery("""
+                        SELECT response
+                        FROM Response response
+                        WHERE response.job.id = :jobId
+                        AND response.candidate.id = :candidateId
+                        """, Response.class)
+                .setParameter("jobId", jobId)
+                .setParameter("candidateId", candidateId)
+                .getResultStream()
+                .findFirst();
     }
 }

@@ -1,3 +1,8 @@
 spring:
   application:
     name: JobFinder
+
+  #  spring.jpa.properties.hibernate.query.fail_on_pagination_over_collection_fetch=true
+  jpa:
+    hibernate:
+      ddl-auto: validate

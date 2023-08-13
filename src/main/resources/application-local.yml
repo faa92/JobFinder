@@ -12,7 +12,7 @@ spring:
 
 logging:
   level:
-    sql=TRACE:
+    sql: TRACE
 
 
 

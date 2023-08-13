@@ -1,18 +1,18 @@
 
-CREATE TABLE employer (
-                          id      BIGSERIAL PRIMARY KEY,
-                          email   TEXT UNIQUE NOT NULL,
-                          name    TEXT        NOT NULL,
-                          website TEXT        NOT NULL
+CREATE TABLE employer(
+                         id      BIGSERIAL PRIMARY KEY,
+                         email   TEXT UNIQUE NOT NULL,
+                         name    TEXT        NOT NULL,
+                         website TEXT        NOT NULL
 );
 
 CREATE TABLE candidate
 (
     id         BIGSERIAL PRIMARY KEY,
-    email      TEXT UNIQUE NOT NULL,
-    first_name TEXT        NOT NULL,
-    last_name  TEXT        NOT NULL,
-    resume     TEXT        NOT NULL
+    email      TEXT NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name  TEXT NOT NULL,
+    resume     TEXT NOT NULL
 );
 
 CREATE UNIQUE INDEX ON candidate (lower(email));
@@ -26,7 +26,6 @@ CREATE TABLE job
     description TEXT      NOT NULL,
     created_at  TIMESTAMP NOT NULL,
     active      BOOLEAN   NOT NULL
---                      FOREIGN KEY (employer_id) REFERENCES employer (id)
 );
 
 
@@ -37,6 +36,4 @@ CREATE TABLE response
     candidate_id BIGINT    NOT NULL REFERENCES candidate,
     message      TEXT      NOT NULL,
     created_at   TIMESTAMP NOT NULL
---                           FOREIGN KEY (job_id) REFERENCES job (id),
---                           FOREIGN KEY (candidate_id) REFERENCES candidate (id)
 );
