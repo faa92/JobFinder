@@ -16,11 +16,11 @@ public class ResponseJpaRepository extends BaseJpaRepository<Response, Long> imp
     @Override
     public List<Response> findPageByJobWithCandidate(long jobId, int pageSize, int pageNumber) {
         return entityManager.createQuery("""
-                         SELECT response 
-                         FROM Response response
-                         JOIN FETCH response.candidate
-                         WHERE response.job.id = : jobId
-                         ORDER BY response.createdAt DESC                    
+                        SELECT response 
+                        FROM Response response
+                        JOIN FETCH response.candidate
+                        WHERE response.job.id = : jobId
+                        ORDER BY response.createdAt DESC                    
                         """, Response.class)
                 .setParameter("jobId", jobId)
                 .setMaxResults(pageSize)
